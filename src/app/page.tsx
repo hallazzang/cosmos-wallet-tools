@@ -10,6 +10,13 @@ import {
 } from '@/components/ui/card';
 import { useState } from 'react';
 
+declare global {
+  interface Window {
+    keplr: any;
+    getOfflineSigner: any;
+  }
+}
+
 export default function Home() {
   const [walletConnected, setWalletConnected] = useState(false);
   const [address, setAddress] = useState('');
