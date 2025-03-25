@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Cosmos Wallet Tools</title>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+      #connect-btn {
+        padding: 4px 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Cosmos Wallet Tools</h1>
+    <button id="connect-btn" onclick="connect()">Connect Wallet (Keplr)</button>
+    <input type="hidden" id="chain-id" value="cosmoshub-4" />
+    <div style="margin-top: 1rem">
+      Public key(base64-encoded): <span id="pubkey"></span>
+    </div>
+    <script>
+      async function connect() {
+        const chainId = document.getElementById('chain-id').value;
+        await window.keplr.enable(chainId);
+
+        const offlineSigner = await window.getOfflineSigner(chainId);
+        const accounts = await offlineSigner.getAccounts();
+
+        document.getElementById('pubkey').textContent = btoa(
+          String.fromCharCode(...accounts[0].pubkey)
+        );
+      }
+    </script>
+  </body>
+</html>
