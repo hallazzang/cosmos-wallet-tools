@@ -14,6 +14,7 @@
     <h1>Cosmos Wallet Tools</h1>
     <button id="connect-btn" onclick="connect()">Connect Wallet (Keplr)</button>
     <input type="hidden" id="chain-id" value="cosmoshub-4" />
+    <div style="margin-top: 1rem">Address: <span id="address"></span></div>
     <div style="margin-top: 1rem">
       Public key(base64-encoded): <span id="pubkey"></span>
     </div>
@@ -25,6 +26,7 @@
         const offlineSigner = await window.getOfflineSigner(chainId);
         const accounts = await offlineSigner.getAccounts();
 
+        document.getElementById('address').textContent = accounts[0].address;
         document.getElementById('pubkey').textContent = btoa(
           String.fromCharCode(...accounts[0].pubkey)
         );
